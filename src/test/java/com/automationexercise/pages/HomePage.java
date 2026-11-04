@@ -17,6 +17,7 @@ public class HomePage {
     private final SelenideElement logoutLink = $("a[href='/logout']");
     private final SelenideElement loggedInAs = $x("//a[contains(., 'Logged in as')]");
     private final SelenideElement deleteAccountLink = $("a[href='/delete_account']");
+    private final SelenideElement productsLink = $("a[href='/products']");
 
     public HomePage open() {
         Selenide.open("/");
@@ -37,6 +38,11 @@ public class HomePage {
     public LoginPage logout() {
         logoutLink.click();
         return new LoginPage();
+    }
+
+    public ProductsPage openProducts() {
+        productsLink.click();
+        return new ProductsPage();
     }
 
     public void deleteAccount() {
