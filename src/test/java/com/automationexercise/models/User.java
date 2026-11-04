@@ -24,7 +24,7 @@ public record User(
         return new User(
                 "qa_" + id,
                 "qa_" + id + "@example.com",
-                "Passw0rd!",
+                "Pw1!" + id,
                 "15", "May", "1990",
                 "John", "Doe", "QA Corp",
                 "1 Main Street", "Canada", "Ontario", "Toronto", "M5V 2T6",
