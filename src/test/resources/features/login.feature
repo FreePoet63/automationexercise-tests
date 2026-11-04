@@ -14,17 +14,17 @@ Feature: Login and logout
     Given a registered user exists
     And I open the home page
     When I open the Signup and Login page
-    And I log in with the registered email and password "<password>"
+    And I log in with the registered email and a "<variant>" password
     Then I see the login error "Your email or password is incorrect!"
 
     Examples:
-      | password  |
-      | wrong123  |
-      | Passw0rd  |
-      | PASSW0RD! |
+      | variant   |
+      | incorrect |
+      | uppercase |
+      | lowercase |
 
   Scenario: Login with an unregistered email
     Given I open the home page
     When I open the Signup and Login page
-    And I log in with email "nobody_registered@example.com" and password "Passw0rd!"
+    And I log in with an unregistered email
     Then I see the login error "Your email or password is incorrect!"

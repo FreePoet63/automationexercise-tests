@@ -4,7 +4,7 @@ UI test automation framework for [automationexercise.com](https://automationexer
 
 Tests are written in Gherkin (BDD) and run with Cucumber on top of Selenide. Reports are published to GitHub Pages with Allure, including run history.
 
-**Live report:** `https://<your-login>.github.io/<your-repo>/`
+**Live report:** [Actual Allure report](https://freepoet63.github.io/automationexercise-tests/)
 
 ## Tech stack
 
@@ -25,6 +25,12 @@ Tests are written in Gherkin (BDD) and run with Cucumber on top of Selenide. Rep
 | Login | Login with valid credentials and logout |
 | Login | Login with a wrong password (Scenario Outline, 3 examples) |
 | Login | Login with an unregistered email |
+| Product search | Search for a product by name (Scenario Outline, 3 examples) |
+| Product search | Search for a product that does not exist |
+| Cart | Add a product to the cart |
+| Cart | Add two different products to the cart |
+| Cart | Cart total is price multiplied by quantity |
+| Cart | Remove a product from the cart |
 
 ## Project structure
 
@@ -36,9 +42,10 @@ src/test
 │   ├── context/    ScenarioContext: state shared between steps in one scenario
 │   ├── hooks/      Hooks: Selenide + Allure setup, browser teardown, data cleanup
 │   ├── models/     User: test user with a unique generated email
-│   ├── pages/      Page Objects (HomePage, LoginPage, SignupPage, AccountResultPage)
+│   ├── pages/      Page Objects (HomePage, LoginPage, SignupPage, AccountResultPage,
+│   │               ProductsPage, CartPage)
 │   ├── runner/     RunCucumberTest: JUnit Platform Suite entry point
-│   └── steps/      Step definitions (AuthSteps, LoginSteps)
+│   └── steps/      Step definitions (AuthSteps, LoginSteps, ProductSteps, CartSteps)
 └── resources
     ├── features/   Gherkin feature files
     ├── config.properties
@@ -50,6 +57,7 @@ src/test
 
 - **Page Object pattern.** Locators and page actions live in `pages/`, steps contain no locators.
 - **Independent scenarios.** Each scenario creates its own user with a unique email, so tests do not depend on each other and can run in any order.
+- **No credentials in scenarios.** Passwords are generated for every test user and never appear in feature files or in the repository. Scenarios describe behavior (for example "a wrong password"), not values.
 - **Fast test data via API.** Preconditions such as "a registered user exists" are created through the site's API instead of the UI, and the user is deleted in an `@After` hook.
 - **Flaky test handling.** The public demo site is sometimes overloaded or shows ad overlays, so failed scenarios are retried once (`rerunFailingTestsCount` in Surefire). A `Flakes` entry in the Maven summary means a scenario passed only on retry.
 
@@ -111,9 +119,9 @@ The report contains Cucumber steps, a screenshot for every failed step and, for 
 
 The workflow in `.github/workflows/tests.yml`:
 
-1. Runs the tests on every push to `main`, on pull requests and on manual start.
+1. Runs the tests on every push to `master`, on pull requests and on manual start.
 2. Restores Allure history from the `gh-pages` branch.
-3. Builds the Allure report and publishes it to GitHub Pages (from `main` only).
+3. Builds the Allure report and publishes it to GitHub Pages (from `master` only).
 4. Uploads raw Allure results as a workflow artifact.
 5. Fails the job if any test failed, after the report is published.
 
