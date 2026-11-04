@@ -1,0 +1,6 @@
+"Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
+"","Login and logout","Login with an unregistered email","0","0","1","0","0"
+"","Login and logout","Login with a wrong password","0","0","3","0","0"
+"","Login and logout","Login with valid credentials and logout","0","0","1","0","0"
+"","User registration","Register a new user and delete the account","0","0","1","0","0"
+"","User registration","Sign up with an already registered email","0","0","1","0","0"
