@@ -18,6 +18,8 @@ public class HomePage {
     private final SelenideElement loggedInAs = $x("//a[contains(., 'Logged in as')]");
     private final SelenideElement deleteAccountLink = $("a[href='/delete_account']");
     private final SelenideElement productsLink = $("a[href='/products']");
+    private final SelenideElement contactUsLink = $("a[href='/contact_us']");
+    private final SelenideElement slider = $("#slider");
 
     public HomePage open() {
         Selenide.open("/");
@@ -43,6 +45,16 @@ public class HomePage {
     public ProductsPage openProducts() {
         productsLink.click();
         return new ProductsPage();
+    }
+
+    public ContactUsPage openContactUs() {
+        contactUsLink.click();
+        return new ContactUsPage();
+    }
+
+    public HomePage shouldBeOpened() {
+        slider.shouldBe(visible);
+        return this;
     }
 
     public void deleteAccount() {
