@@ -4,9 +4,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.CollectionCondition.size;
-import static com.codeborne.selenide.Condition.exactText;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,6 +13,8 @@ public class CartPage {
 
     private final ElementsCollection rows = $$("#cart_info_table tbody tr");
     private final SelenideElement emptyMessage = $("#empty_cart");
+    private final SelenideElement checkoutButton = $(".check_out");
+    private final SelenideElement checkoutModalLoginLink = $("#checkoutModal a[href='/login']");
 
     public CartPage shouldHaveProductsCount(int count) {
         rows.shouldHave(size(count));
@@ -47,6 +47,21 @@ public class CartPage {
 
     public CartPage shouldBeEmpty() {
         emptyMessage.shouldBe(visible).shouldHave(text("Cart is empty!"));
+        return this;
+    }
+
+    public CheckoutPage proceedToCheckout() {
+        checkoutButton.click();
+        return new CheckoutPage();
+    }
+
+    public CartPage proceedToCheckoutAsGuest() {
+        checkoutButton.click();
+        return this;
+    }
+
+    public CartPage shouldAskToRegisterOrLogin() {
+        checkoutModalLoginLink.shouldBe(visible).shouldHave(text("Register / Login"));
         return this;
     }
 
