@@ -31,6 +31,8 @@ Tests are written in Gherkin (BDD) and run with Cucumber on top of Selenide. Rep
 | Cart | Add two different products to the cart |
 | Cart | Cart total is price multiplied by quantity |
 | Cart | Remove a product from the cart |
+| Checkout | Place an order as a registered user |
+| Checkout | Guest is asked to register or log in at checkout |
 
 ## Project structure
 
